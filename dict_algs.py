@@ -9,6 +9,8 @@ ivan = {
 		"age": 10,
 	}]
 }
+a=6
+print(a)
 
 emps = [ivan,]
 
