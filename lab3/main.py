@@ -2,17 +2,19 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-from getFriendsBDateMod import getFriendsBdate
-from getUserIdMod import getUserId
+
+from Get_Friends_BDate_Mod import GetFriendsBdate
+from Get_User_Id_Mod import GetUserId
+
 
 x = input()
 	
-getId = getUserId()
-ID = getId.response_handler(x)
+getId = GetUserId(x)
+ID = getId.execute()
 
-getBDate = getFriendsBdate()
-bDateList = getBDate.response_handler(ID)
-print(bDateList)
+getBDate = GetFriendsBdate(ID)
+bDateList = getBDate.execute()
+
 
 List = {}
 for x in bDateList:
