@@ -1,0 +1,22 @@
+{% extends '_base.html' %}
+{%  block list %}
+    <br>
+    <div class="jumbotron">
+        <h2>
+            Header
+            {{ post.header }}
+            <br>
+            <br>
+            <small>{{  post.text }}</small>
+            <br>
+            <br>
+            {%  if post.rate > 50 %}
+                <span class="label label-success">Popular</span>
+            {% elif post.rate > 10 %}
+                <span class="label label-warning">Ordinary</span>
+            {%  else %}
+                <span class="label label-danger">Unknown</span>
+            {% endif %}
+        </h2>
+    </div>
+{%  endblock %}
