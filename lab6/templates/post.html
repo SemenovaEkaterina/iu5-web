@@ -1,0 +1,28 @@
+{% extends '_base.html' %}
+{%  block list %}
+    <h1>{{ bank.name }}</h1>
+    {%  for transaction in transactions %}
+        <div class="jumbotron">
+            <h2>
+                <small>
+                    {{ transaction.type }}
+                    {{ transaction.count }}
+                    <br>
+                    {{ transaction.user.last_name }}
+                    {{ transaction.user.first_name }}
+                    {{ transaction.user.middle_name }}
+                    {{ transaclion.user.document_number }}
+                </small>
+                <br>
+                <br>
+                {%  if transaction.count < 50000 %}
+                    <span class="label label-success">Ordinary</span>
+                {% elif transaction.count < 500000 %}
+                    <span class="label label-warning">Important</span>
+                {%  else %}
+                    <span class="label label-danger">Very Important</span>
+                {% endif %}
+            </h2>
+        </div>
+    {%  endfor %}
+{%  endblock %}
