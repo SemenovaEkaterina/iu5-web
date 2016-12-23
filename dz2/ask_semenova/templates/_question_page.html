@@ -1,0 +1,41 @@
+{% for answer in answers %}
+                  <div class= "ask-answer_container" id="{{ answer.id }}">
+                    <div class="row ask-answer">
+                        <div class="col-sm-3 col-md-2 ask-question_left_side">
+                            <div class="ask-question_user_pic">
+                                <img src='{{ answer.author.avatar.url }}' class="img-rounded">
+                            </div>
+                            <br>
+
+                            <div class="ask-like_bar">
+                                <div class="ask-rate" answer="{{ answer.id }}">
+                                    {{ answer.rating }}
+                                </div>
+                                <div class="btn-group-vertical ask-like_button" role="group" aria-label="...">
+                                    <button {{ answer.disabled }} like_type="1" answer_id = "{{ answer.id }}" type="button" class="btn btn-default ask-like_answer ask-like_top">
+                                        <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    </button>
+                                    <button {{ answer.disabled }} like_type="-1" answer_id = "{{ answer.id }}" type="button" class="btn btn-default ask-like_answer ask-like_bottom">
+                                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="col-sm-9 col-md-10">
+                            <p class="ask-answer_text">
+                                {{ answer.text }}
+                            </p>
+                        {% if is_author %}
+                        <div class="checkbox ask-checkbox">
+                            <label><input {{ answer.checked }} class="ask-is_correct" answer_id="{{ answer.id }}" type="checkbox" value=""></label><text>Correct!</text>
+                        </div>
+                        {%  endif %}
+
+
+                        </div>
+
+                  </div>
+                </div>
+                {% endfor %}

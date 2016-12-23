@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://getbootstrap.com/examples/dashboard/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Index</title>
+
+
+
+    <!-- Bootstrap core CSS -->
+    {% load static %}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'style2.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="{%  static 'jquery-3.1.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/main.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/search.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
+  </head>
+
+  <body>
+
+
+
+
+
+
+
+    <div class="container-fluid ask-container">
+      <nav class="navbar ask-navbar">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand ask-brand" href="/">ASK</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+         
+        {% if user.name %}
+        {% include "_authorized.html" %}
+        {% else %}
+        {% include "_notauthorized.html" %}
+        {%  endif %}
+
+
+        <form action="#" class="navbar-form navbar-right" id="search_form" role="search">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search..." id="search" list="search_list">
+              <datalist id="search_list">
+              </datalist>
+          </div>
+          <button type="submit" class="btn btn-default">Search...</button>
+        </form>
+            
+         
+          
+        </div>
+      </nav>
+    </div>
+
+      <div class="container-fluid ask-container">
+          <div class="row">
+              <div class="col-sm-9">
+                  {% block content %}
+                  {% endblock %}
+              </div>
+              <div class="col-sm-3">
+                    <div class="ask-right_panel">
+                        <br>
+                        <div class="ask-right_panel_caption">
+                            Popular Tags
+                        </div>
+                        <div>
+                        <ul class="ask-tag_list">
+                            {% for tag in popular_tags %}
+                            {% url 'tag' tag as tag_url %}
+                                <li><a href="{{ tag_url }}  ">{{ tag }}</a></li>
+                            {% endfor %}
+                            
+                        </ul>
+                        </div>
+                        <br><br><br><br><br><br>
+                        <div class="ask-right_panel_caption">
+                            Best Members
+                        </div>
+                        <ul class="ask-user_list">
+                            {% for user in popular_users %}
+                                <li><p>{{ user }}</p></li>
+                            {% endfor %}
+                        </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      
+      
+</body></html>

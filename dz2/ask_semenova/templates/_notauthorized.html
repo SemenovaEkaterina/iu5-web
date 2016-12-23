@@ -1,0 +1,8 @@
+<div class="ask-not_user_mini navbar-right">
+          {% url 'login' as login_url%}
+          {% url 'signup' as signup_url%}
+          <p>
+            <a href="{{ login_url }}">log in</a>
+            <a href="{{ signup_url }}" class="ask-register">register</a>
+          </p>
+</div>

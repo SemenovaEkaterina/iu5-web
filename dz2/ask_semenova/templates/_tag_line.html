@@ -1,0 +1,7 @@
+<ul class="ask-tag_list">
+    <li>Tags:</li>
+    {% for tag in question.tags.all %}
+    {% url 'tag' tag as tag_url %}
+    <li><a href="{{ tag_url }}">{{ tag }}</a></li>
+    {% endfor %}
+</ul>

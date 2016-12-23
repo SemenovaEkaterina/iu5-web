@@ -1,0 +1,41 @@
+{% extends "_base.html" %}
+{% block authorized_user %}
+    {% include "_notauthorized.html" %}
+{% endblock %}
+{% block content %}
+
+                <div class="container-fluid ask-current_tag">
+                      Log in
+                </div>
+                  <div class="container-fluid ask-error_message">
+                      {{ form.non_field_errors }}
+                  </div>
+                  
+                  
+                <div class="ask-content"> 
+
+
+                <form action="{{ redirect_url }}" method="post" class="form-horizontal ask-form_log_in">
+                    {% csrf_token %}
+                    {%  for i in form %}
+                    <div class="form-group">
+                        <label class="col-sm-2 ask-form_new_user_label">{{ i.label }}</label>
+                        <div class="col-sm-10">
+                            <div class="ask-form_new_user_label">
+                                {{ i }}
+                            </div>
+                            <div class="ask-error_message">
+                                    {{ i.errors }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input type="submit" value="LOGIN" class="btn btn-default ask-button_ask"/>
+                        </div>
+                    </div>
+                </form>
+                </div>
+{% endblock %}

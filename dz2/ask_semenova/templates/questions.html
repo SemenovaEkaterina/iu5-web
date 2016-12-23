@@ -1,0 +1,87 @@
+{% extends "_base.html" %}
+
+{% block content %}
+                  <div class="container-fluid ask-current_tag">
+                        {{ type }}
+                  </div>
+                  
+                  <div class="ask-content">
+                      
+                  {% for question in context %}
+                  {% url 'question' question.id as question_url%}
+                    
+                  <div class="row ask-one_question">
+                        <div class="col-sm-3 col-md-2 ask-question_left_side">
+                            <div class="ask-question_user_pic">
+                                <img src='{{ question.author.avatar.url }}' class="img-rounded">
+                            </div>
+                            <br>
+                            
+                            <div class="ask-like_bar">
+                                <div class="ask-rate" question = "{{ question.id }}">
+                                    {{ question.rating }}
+                                </div>
+                                {% csrf_token %}
+                                <div class="btn-group-vertical ask-like_button" role="group" aria-label="...">
+                                        <button {{ question.disabled }} like_type = "1" question_id = "{{ question.id }}" type="submit" class="btn btn-default ask-like_question ask-like_top">
+                                            <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                        </button>
+                                        <button {{ question.disabled }} like_type = "-1" question_id = "{{ question.id }}" type="button" class="btn btn-default ask-like_question ask-like_bottom">
+                                            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                        </button>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-sm-9 col-md-10">
+                            <a class="ask-one_question_caption" href="{{ question_url }}">{{ question.title }}</a>
+                            <p class="ask-question_text"> 
+                                {{ question.text }}
+                            </p>
+                            
+                            
+                                <a href="{{ question_url }}" class="ask-answers_count"><big>Answers ({{ question.count_answers }})</big></a>
+                            
+                                {% include "_tag_line.html" %}
+                        </div>
+                      
+                  </div>
+                  {% endfor %}
+                  
+                  
+                  </div>
+                  
+                    <ul class="pagination ask-pagination">
+                        {% if context.has_previous %}
+                        <li>
+                        <a href="?page={{ context.previous_page_number }}" id="ask-pagination_button">&laquo;</a>
+                        </li>
+                        {% endif %}
+
+			{% for num in range %}
+			{% if num == context.number %}
+                        {% url 'question' question.id as question_url %}
+                        <li class="active"><a href="#" id="ask-pagination_button">{{ num }}</a></li>
+                        {% else %}
+                        <li><a href="?page={{ num }}" id="ask-pagination_button">{{ num }}</a></li>
+			{% endif %}			
+			{% endfor %}
+
+
+                        <!--{% for num in context.paginator.page_range %}
+                        {% if num == context.number %}
+                        {% url 'question' question.id as question_url %}
+                        <li class="active"><a href="#" id="ask-pagination_button">{{ num }}</a></li>
+                        {% else %}
+                        <li><a href="?page={{ num }}" id="ask-pagination_button">{{ num }}</a></li>
+                        {% endif %}
+                        {% endfor %}-->
+
+
+
+                        {% if context.has_next %}
+                        <li ><a href="?page={{ context.next_page_number }}" id="ask-pagination_button">&raquo;</a></li>
+                        {% endif %}
+                    </ul>
+{% endblock %}

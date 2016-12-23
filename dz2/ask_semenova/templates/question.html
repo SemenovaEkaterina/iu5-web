@@ -1,0 +1,121 @@
+{% extends "_base.html" %}
+{% block authorized_user %}
+    {% include "_authorized.html" %}
+{% endblock %}
+{% block content %}
+                  <div class="ask-content">
+                    
+                      <div class="row ask-question">
+                        <div class="col-sm-3 col-md-2 ask-question_left_side">
+                            <div class="ask-question_user_pic">
+                                <img src='{{ question.author.avatar.url }}' class="img-rounded">
+                            </div>
+                            <br>
+                            
+                            <div class="ask-like_bar">
+                                <div class="ask-rate" question = "{{ question.id }}">
+                                    {{ question.rating }}
+                                </div>
+                                <div class="btn-group-vertical ask-like_button" role="group" aria-label="...">
+                                    <button {{ question.disabled }} like_type="1" question_id = "{{ question.id }}" type="button" class="btn btn-default ask-like_question ask-like_top">
+                                        <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+                                    </button>
+                                    <button {{ question.disabled }} like_type="-1" question_id = "{{ question.id }}" type="button" class="btn btn-default ask-like_question ask-like_bottom">
+                                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="col-sm-9 col-md-10">
+                            <p class="ask-one_question_caption"> {{ question.title }} </p>
+                            <p class="ask-question_text"> 
+                                 {{ question.text }}
+                            </p>
+                            
+                                
+                                {% include "_tag_line.html" %}
+                              
+                            
+                            
+                        </div>
+
+
+
+
+                  </div>
+                
+                      <hr>
+
+
+
+                    <div>
+                  {% include page_template %}
+                    <div class="answers_empty">
+
+                  </div>
+                    </div>
+
+                      
+                
+                        
+                  <hr>
+
+                <div class="ask-content">
+
+
+                <form action="{{ redirect_url }}" method="post" class="form-horizontal ask-form_log_in" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {%  for i in form %}
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div>
+                                {{ i }}
+                            </div>
+                            <div class="ask-error_message">
+                                    {{ i.errors }}
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-0 col-sm-12">
+                            <input type="submit" value="ANSWER" class="btn btn-default ask-button_ask"/>
+                        </div>
+                    </div>
+                </form>
+                </div>
+
+
+</div>
+
+    <!--
+
+                    <ul class="pagination ask-pagination">
+                        {% if answers.has_previous %}
+                        <li>
+                        <a href="?page={{ answers.previous_page_number }}" id="ask-pagination_button">&laquo;</a>
+                        </li>
+                        {% endif %}
+
+			{% for num in range %}
+			{% if num == answers.number %}
+                        <li class="active"><a href="#" id="ask-pagination_button">{{ num }}</a></li>
+                        {% else %}
+                        <li><a href="?page={{ num }}" id="ask-pagination_button">{{ num }}</a></li>
+			{% endif %}
+			{% endfor %}
+
+                        {% if answers.has_next %}
+                        <li ><a href="?page={{ answers.next_page_number }}" id="ask-pagination_button">&raquo;</a></li>
+                        {% endif %}
+                    </ul>
+      -->
+
+{% load static %}
+    <script type="text/javascript" src="{% static 'scripts/real_time_msg.js' %}"></script>
+    <script type="text/javascript" src="{% static 'scripts/scroll.js' %}"></script>
+{% endblock %}
